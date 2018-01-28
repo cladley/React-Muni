@@ -1,0 +1,62 @@
+.route-list-container {
+  flex: 1;
+  width: 100%;
+}
+
+.route-list-container.is-active .route-list-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.route-list-item {
+  background: white;
+  color: black;
+  font-size: 12px;
+  height: 80px;
+  opacity: 0;
+  text-align: left;
+  transform: translateY(30px);
+  transition: transform 0.3s ease, opacity .3s ease;
+  padding: 18px 20px;
+}
+
+.route-list-item:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.route-list-item:nth-child(2) {
+  transition-delay: .1s;
+}
+
+.route-list-item:nth-child(3) {
+  transition-delay: .2s;
+}
+
+.route-list-item:nth-child(4) {
+  transition-delay: .3s;
+}
+
+.route-list-item:nth-child(5) {
+  transition-delay: .4s;
+}
+
+.route-list-item:nth-child(6) {
+  transition-delay: .5s;
+}
+
+.route-list-item__tag {
+
+}
+
+.route-list-item__title {
+  line-height: 40px;
+}
+
+.route-list-item-enter {
+  opacity: 0.01;
+}
+
+.route-list-item-enter.route-list-item-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}

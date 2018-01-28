@@ -1,0 +1,27 @@
+.search-bar {
+  position: relative;
+  height: 100%;
+  display: flex;
+  padding: 0 15px;
+}
+
+.search-bar .search-open {
+  border: 0;
+  background-color: transparent;
+}
+
+.search-bar .search-icon {
+
+}
+
+.search-bar .search-input {
+  font-size: 12px;
+  flex: 1;
+  padding: 0 10px;
+  border: 0;
+}
+
+.search-bar .search-close {
+  border: 0;
+  background-color: transparent;
+}
