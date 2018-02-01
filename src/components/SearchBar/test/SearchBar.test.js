@@ -5,7 +5,7 @@ import SearchBar from '../SearchBar';
 
 Enzyme.configure({adapter: new Adapter()});
 
-describe('SearchBar', () => {
+describe('<SearchBar />', () => {
   let wrapper;
   let onSearch = jest.fn();
 
@@ -57,7 +57,4 @@ describe('SearchBar', () => {
       });
     });
   });
-
-
 });
-

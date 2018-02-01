@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {getAllRoutes} from '../../api/muni'
-import TransitionGroup from 'react-addons-transition-group';
+import {connect} from 'react-redux';
+import RouteListItem from './RouteListItem';
+import {getAllRoutes, getRoute} from '../../api/muni'
+import {getRoutes} from '../../actions/actions';
+// import TransitionGroup from 'react-addons-transition-group';
 import {TweenMax} from 'gsap';
 import './routelist.css';
 
@@ -10,46 +13,36 @@ class RouteListContainer extends Component {
   };
 
   componentDidMount() {
-    getAllRoutes().then(routes => {
-      console.log(routes);
-      this.setState({
-        isVisible: true
-      });
-    });
+    this.props.dispatch(getRoutes());
+  }
+
+  renderRouteListItems(routeItems = []) {
+    const routeItemsToRender = [];
+    for (let [,item] of Object.entries(routeItems)) {
+      routeItemsToRender.push(<RouteListItem tag={item.tag} title={item.title} key={item.tag} />)
+    }
+
+    console.log(routeItemsToRender);
+    return routeItemsToRender;
   }
 
   render() {
-    const classes = this.state.isVisible ? "route-list-container is-active" : "route-list-container";
+    const routes = this.props.routes ? this.props.routes.byTag : null;
+    console.log(routes);
+    const routeItems = this.renderRouteListItems(routes);
 
+
+    const classes = this.props.onSuccess ? "route-list-container is-active" : "route-list-container";
     return (
       <div className={classes}>
-        <RouteListItem tag="E" title="E-Embarcadero" />
-        <RouteListItem tag="E" title="E-Embarcadero" />
-        <RouteListItem tag="E" title="E-Embarcadero" />
-        <RouteListItem tag="E" title="E-Embarcadero" />
-        <RouteListItem tag="E" title="E-Embarcadero" />
-
+        {routeItems}
       </div>
     )
   }
 }
 
-class RouteListItem extends Component {
-  componentWillEnter(callback) {
-
-  }
-
-  render() {
-    return (
-      <div className="route-list-item">
-        <span>{this.props.tag}</span><span>{this.props.title}</span>
-      </div>
-    )
-  }
-}
 
 class Test extends Component {
-
   componentWillEnter (callback) {
     TweenMax.fromTo(this.container, 0.3, {y: 100, opacity: 0}, {y: 0, opacity: 1, onComplete: callback});
   }
@@ -59,6 +52,7 @@ class Test extends Component {
   }
 
   render() {
+
     return (
       <div className="test" ref={container => this.container = container }>
         <p>this is a test</p>
@@ -67,4 +61,12 @@ class Test extends Component {
   }
 }
 
-export default RouteListContainer;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    routes: state.routes.routes,
+    onSuccess: state.routes.getRoutesSuccess
+  };
+}
+
+export default connect(mapStateToProps)(RouteListContainer);

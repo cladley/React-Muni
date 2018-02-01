@@ -10,7 +10,6 @@ function Sidebar(props) {
         <SearchBar />
       </header>
       <RoutesListContainer />
-
       <footer className="sidebar-footer">
 
       </footer>

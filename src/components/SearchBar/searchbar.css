@@ -24,4 +24,5 @@
 .search-bar .search-close {
   border: 0;
   background-color: transparent;
+  display: flex;
 }
