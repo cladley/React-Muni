@@ -10,10 +10,6 @@
   background-color: transparent;
 }
 
-.search-bar .search-icon {
-
-}
-
 .search-bar .search-input {
   font-size: 12px;
   flex: 1;
@@ -21,8 +17,16 @@
   border: 0;
 }
 
+.search-bar .search-input:focus {
+  outline: none;
+}
+
 .search-bar .search-close {
   border: 0;
   background-color: transparent;
   display: flex;
+}
+
+.search-bar .search-close:focus {
+  outline: none;
 }
