@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import RouteListItem from './RouteListItem';
-import {getAllRoutes, getRoute} from '../../api/muni'
-import {getRoutes} from '../../actions/actions';
+import {getRoutes, getRouteByTag} from '../../actions/actions';
 import {Transition} from 'react-transition-group'
 
 // import TransitionGroup from 'react-addons-transition-group';
@@ -18,10 +17,20 @@ class RouteListContainer extends Component {
     TweenMax.staggerFromTo('.route-list-item', .35, {opacity: '0', y: '+10px'}, {opacity: '1', y: '0'}, 0.1);
   }
 
+  onRouteClicked(tag) {
+    this.props.dispatch(getRouteByTag(tag));
+  }
+
   renderRouteListItems(routeItems = []) {
     const routeItemsToRender = [];
     for (let [,item] of Object.entries(routeItems)) {
-      routeItemsToRender.push(<RouteListItem tag={item.tag} title={item.title} key={item.tag} />)
+      routeItemsToRender.push(
+        <RouteListItem tag={item.tag}
+            title={item.title}
+            color={item.color}
+            oppositeColor={item.oppositeColor}
+            key={item.tag}
+            onRouteClick={(tag) => this.onRouteClicked(tag)} />);
     }
     return routeItemsToRender;
   }

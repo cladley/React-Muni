@@ -1,11 +1,10 @@
 import {xmlToJson, createObjectFromArray} from '../utilities/helpers';
 
 const BASE_URL = 'http://webservices.nextbus.com/service/publicXMLFeed?a=sf-muni&command=';
-const ALL_ROUTES_URL = `${BASE_URL}routeList`;
+const ALL_ROUTES_URL = '/allroutes';
 const GET_ROUTE = `${BASE_URL}routeConfig&r=`;
 const GET_STOP_PREDICTIONS_FOR_STOP = `${BASE_URL}predictions&&s={stopTag}`;
 const GET_STOP_PREDICTIONS_FOR_ROUTE = `${BASE_URL}predictions&r={routeTag}&s={stopTag}`;
-
 
 async function makeRequest(url) {
   let oDom;
@@ -36,7 +35,6 @@ export async function getAllStops() {
   const url = '/stops';
   const response = await fetch(url);
   const data = await response.json();
-  console.log(data);
 }
 
 export async function getStopPredictions(routeTag, stopTag) {

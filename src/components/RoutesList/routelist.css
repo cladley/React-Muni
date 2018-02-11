@@ -18,6 +18,27 @@
   opacity: 0;
   text-align: left;
   padding: 18px 20px;
+  position: relative;
+}
+
+.route-list-item:hover {
+  cursor: pointer;
+}
+
+.route-list-item:hover .bar{
+  width: 15px;
+}
+
+.route-list-item .bar {
+  content: '';
+  width: 8px;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: .4;
+  transition: width .3s ease;
 }
 
 @keyframes slideIn {
