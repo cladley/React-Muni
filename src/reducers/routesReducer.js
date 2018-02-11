@@ -7,7 +7,8 @@ const initialState = {
   },
   getRoutesPending: false,
   getRoutesSuccess: false,
-  getRouteFailure: false
+  getRouteFailure: false,
+  searchTerm: ''
 };
 
 export default function (state = initialState, action) {
@@ -29,8 +30,11 @@ export default function (state = initialState, action) {
       return state;
     case 'GET_ROUTE_FAILURE':
       return state;
+    case 'SEARCH_TERM':
+      return Object.assign({}, state, {searchTerm: action.searchTerm});
     default:
       return state;
+
   }
 }
 

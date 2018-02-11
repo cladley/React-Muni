@@ -3,26 +3,42 @@ import {connect} from 'react-redux';
 import RouteListItem from './RouteListItem';
 import {getRoutes, getRouteByTag} from '../../actions/actions';
 import {Transition} from 'react-transition-group'
+import {isEmpty} from 'lodash';
 
 // import TransitionGroup from 'react-addons-transition-group';
 import {TweenMax} from 'gsap';
 import './routelist.css';
 
+const ROUTE_LIST_ITEM = '.route-list-item';
+
 class RouteListContainer extends Component {
+  state = {
+    isInitialLoad: false,
+  };
+
   componentDidMount() {
     this.props.dispatch(getRoutes());
   }
 
   componentDidUpdate(prevProps) {
-    TweenMax.staggerFromTo('.route-list-item', .35, {opacity: '0', y: '+10px'}, {opacity: '1', y: '0'}, 0.1);
+    if (isEmpty(prevProps.routes.byTag)) {
+      const items = Array.from(document.querySelectorAll(ROUTE_LIST_ITEM));
+
+      TweenMax.staggerFromTo(items.slice(0, 10), .35, {opacity: '0', y: '+10px'}, {opacity: '1', y: '0'}, 0.1, () => {
+        this.setState({
+          isInitialLoad: true
+        });
+      });
+    }
   }
 
   onRouteClicked(tag) {
     this.props.dispatch(getRouteByTag(tag));
   }
 
-  renderRouteListItems(routeItems = []) {
+  renderRouteListItems(routeItems = {}) {
     const routeItemsToRender = [];
+
     for (let [,item] of Object.entries(routeItems)) {
       routeItemsToRender.push(
         <RouteListItem tag={item.tag}
@@ -35,11 +51,26 @@ class RouteListContainer extends Component {
     return routeItemsToRender;
   }
 
+  filterRouteListItems(routeItems = {}) {
+    if (this.props.searchTerm === '') {
+      return routeItems;
+    }
+
+    const filteredItems = {};
+
+    for (let [key, item] of Object.entries(routeItems)) {
+      if (item.title.toLowerCase().match(this.props.searchTerm)) {
+        filteredItems[key] = item;
+      }
+    }
+    return filteredItems;
+  }
+
   render() {
     const routes = this.props.routes ? this.props.routes.byTag : null;
-    const routeItems = this.renderRouteListItems(routes);
+    const routeItems = this.renderRouteListItems(this.filterRouteListItems(routes));
 
-    const classes = this.props.onSuccess ? "route-list-container is-active" : "route-list-container";
+    const classes = this.state.isInitialLoad ? "route-list-container is-active" : "route-list-container";
     return (
       <div className={classes}>
         {routeItems}
@@ -51,7 +82,8 @@ class RouteListContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     routes: state.routes.routes,
-    onSuccess: state.routes.getRoutesSuccess
+    onSuccess: state.routes.getRoutesSuccess,
+    searchTerm: state.routes.searchTerm
   };
 }
 

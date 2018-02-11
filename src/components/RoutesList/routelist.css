@@ -6,8 +6,7 @@
 }
 
 .route-list-container.is-active .route-list-item {
-  /* opacity: 1;
-  transform: translateY(0); */
+  opacity: 1;
 }
 
 .route-list-item {

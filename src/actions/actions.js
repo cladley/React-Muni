@@ -42,7 +42,15 @@ const getRouteByTag = (tag) => {
   };
 };
 
+const updateSearchTerm = (term) => {
+  return {
+    type: 'SEARCH_TERM',
+    searchTerm: term
+  };
+};
+
 export {
   getRoutes,
-  getRouteByTag
+  getRouteByTag,
+  updateSearchTerm
 };

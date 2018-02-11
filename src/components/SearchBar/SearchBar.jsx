@@ -1,18 +1,15 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {updateSearchTerm} from '../../actions/actions';
 import './searchbar.css';
 
 class SearchBar extends Component {
-  static defaultProps = {
-    onSearch: () => {}
-  };
-
   state = {
     isActive: false,
-    searchText: ''
   };
 
   getCloseButton() {
-    if (this.state.searchText.length > 0) {
+    if (this.props.searchTerm.length > 0) {
       return (
         <button className="search-close" onClick={this.onCloseSearch}>
           <svg className="close-icon" fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -29,26 +26,32 @@ class SearchBar extends Component {
   onCloseSearch = () => {
     this.setState({
       isActive: false,
-      searchText: ''
     });
+
+    this.props.dispatch(updateSearchTerm(''));
   };
 
   onInputChange = (e) => {
-    this.setState({
-      searchText: e.target.value
-    });
-
-    const trimmedSearchTerm = e.target.value.trim();
-
-    if (trimmedSearchTerm.length > 0) {
-      this.props.onSearch(trimmedSearchTerm);
-    }
+    const trimmedSearchTerm = e.target.value.trim().toLowerCase();
+    this.props.dispatch(updateSearchTerm(trimmedSearchTerm));
   };
 
   onInputFocus = () => {
     this.setState({
       isActive: true
     });
+
+    this.searchInput.addEventListener('keydown', this.onKeyDown);
+  };
+
+  onInputBlur = () => {
+    this.searchInput.removeEventListener('keydown', this.onKeyDown);
+  };
+
+  onKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      this.onCloseSearch();
+    }
   };
 
   render() {
@@ -61,7 +64,13 @@ class SearchBar extends Component {
           </svg>
         </button>
 
-        <input value={this.state.searchText} onFocus={this.onInputFocus} onChange={this.onInputChange} ref={searchInput => this.searchInput = searchInput} className="search-input" type="text" placeholder="Search for a route"/>
+        <input className="search-input" type="text"
+            value={this.props.searchTerm}
+            onFocus={this.onInputFocus}
+            onBlur={this.onInputBlur}
+            onChange={this.onInputChange}
+            ref={searchInput => this.searchInput = searchInput}
+            placeholder="Search for a route"/>
 
         {this.getCloseButton()}
       </div>
@@ -69,4 +78,14 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+const mapStateToProps = (state => {
+  return {
+    searchTerm: state.routes.searchTerm
+  };
+});
+
+export {
+  SearchBar
+};
+
+export default connect(mapStateToProps)(SearchBar);
