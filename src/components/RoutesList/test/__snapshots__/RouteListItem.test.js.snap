@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RouteListItem /> should render correctly 1`] = `
+<div
+  className="route-list-item"
+  onClick={[Function]}
+>
+  <span
+    className="route-list-item__tag"
+  >
+    C
+  </span>
+  <span
+    className="route-list-item__title"
+  >
+    California
+  </span>
+</div>
+`;
