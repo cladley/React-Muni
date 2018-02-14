@@ -57,6 +57,7 @@
     "node-sass": "^4.7.2",
     "react-test-renderer": "^16.2.0",
     "redux-devtools-extension": "^2.13.2",
+    "redux-immutable-state-invariant": "^2.1.0",
     "sass-loader": "^6.0.6"
   },
   "scripts": {
