@@ -1,6 +1,9 @@
 :root {
   --border-color: #eee;
   --header-height: 60px;
+  --footer-height: 60px;
+  --search-bar-height: 50px;
+  --direction-switcher-height: 100px;
 }
 
 .App {

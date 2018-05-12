@@ -1,20 +1,24 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import RouteListItem from './RouteListItem';
-import {getRoutes, getRouteByTag} from '../../actions/actions';
-import {Transition} from 'react-transition-group'
-import {isEmpty} from 'lodash';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import RouteListItem from "./RouteListItem";
+import { getRoutes, getRouteByTag } from "../../actions/actions";
+import { Transition } from "react-transition-group";
+import { isEmpty } from "lodash";
 
 // import TransitionGroup from 'react-addons-transition-group';
-import {TweenMax} from 'gsap';
-import './routelist.css';
+import { TweenMax } from "gsap";
+import "./routelist.css";
 
-const ROUTE_LIST_ITEM = '.route-list-item';
+const ROUTE_LIST_ITEM = ".route-list-item";
 
-class RouteListContainer extends Component {
+export class RouteListContainer extends Component {
   state = {
-    isInitialLoad: false,
+    isInitialLoad: false
   };
+
+  constructor(props) {
+    super(props);
+  }
 
   componentDidMount() {
     this.props.dispatch(getRoutes());
@@ -24,11 +28,18 @@ class RouteListContainer extends Component {
     if (isEmpty(prevProps.routes.byTag)) {
       const items = Array.from(document.querySelectorAll(ROUTE_LIST_ITEM));
 
-      TweenMax.staggerFromTo(items.slice(0, 10), .35, {opacity: '0', y: '+10px'}, {opacity: '1', y: '0'}, 0.1, () => {
-        this.setState({
-          isInitialLoad: true
-        });
-      });
+      TweenMax.staggerFromTo(
+        items.slice(0, 10),
+        0.35,
+        { opacity: "0", y: "+10px" },
+        { opacity: "1", y: "0" },
+        0.1,
+        () => {
+          this.setState({
+            isInitialLoad: true
+          });
+        }
+      );
     }
   }
 
@@ -39,20 +50,23 @@ class RouteListContainer extends Component {
   renderRouteListItems(routeItems = {}) {
     const routeItemsToRender = [];
 
-    for (let [,item] of Object.entries(routeItems)) {
+    for (let [, item] of Object.entries(routeItems)) {
       routeItemsToRender.push(
-        <RouteListItem tag={item.tag}
-            title={item.title}
-            color={item.color}
-            oppositeColor={item.oppositeColor}
-            key={item.tag}
-            onRouteClick={(tag) => this.onRouteClicked(tag)} />);
+        <RouteListItem
+          tag={item.tag}
+          title={item.title}
+          color={item.color}
+          oppositeColor={item.oppositeColor}
+          key={item.tag}
+          onRouteClick={tag => this.onRouteClicked(tag)}
+        />
+      );
     }
     return routeItemsToRender;
   }
 
   filterRouteListItems(routeItems = {}) {
-    if (this.props.searchTerm === '') {
+    if (this.props.searchTerm === "") {
       return routeItems;
     }
 
@@ -67,24 +81,24 @@ class RouteListContainer extends Component {
   }
 
   render() {
-    const routes = this.props.routes ? this.props.routes.byTag : null;
-    const routeItems = this.renderRouteListItems(this.filterRouteListItems(routes));
+    const routes = this.props.routes ? this.props.routes.byTag : undefined;
+    const routeItems = this.renderRouteListItems(
+      this.filterRouteListItems(routes)
+    );
 
-    const classes = this.state.isInitialLoad ? "route-list-container is-active" : "route-list-container";
-    return (
-      <div className={classes}>
-        {routeItems}
-      </div>
-    )
+    const classes = this.state.isInitialLoad
+      ? "route-list-container is-active"
+      : "route-list-container";
+    return <div className={classes}>{routeItems}</div>;
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     routes: state.routes.routes,
     onSuccess: state.routes.getRoutesSuccess,
     searchTerm: state.routes.searchTerm
   };
-}
+};
 
 export default connect(mapStateToProps)(RouteListContainer);

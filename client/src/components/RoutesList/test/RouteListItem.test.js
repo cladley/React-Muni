@@ -1,10 +1,8 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
+import {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import RouteListItem from '../RouteListItem';
 import renderer from 'react-test-renderer';
-
-Enzyme.configure({adapter: new Adapter()});
 
 describe('<RouteListItem />', () => {
   const props = {
@@ -14,7 +12,7 @@ describe('<RouteListItem />', () => {
   };
 
   it('should render correctly', () => {
-    const wrapper = renderer.create(<RouteListItem {...props} />).toJSON();
+    const wrapper = renderer.create(<RouteListItem {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
 

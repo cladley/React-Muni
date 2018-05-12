@@ -1,20 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
 import RoutesListContainer from '../RoutesList/RoutesListContainer';
+import RouteDetailsContainer from '../RouteDetails/RouteDetailsContainer';
 import SearchBar from '../SearchBar/SearchBar';
 import './sidebar.css';
 
-function Sidebar(props) {
+function SidebarHeader({children}) {
   return (
-    <div className="sidebar">
-      <header className="sidebar-header">
-        <SearchBar />
-      </header>
-      <RoutesListContainer />
-      <footer className="sidebar-footer">
+    <header className="sidebar-header">
+      {children}
+    </header>
+  );
+}
 
-      </footer>
+function SidebarContent({children}) {
+  return (
+    <div className="sidebar-content">
+      {children}
     </div>
   );
+}
+
+class Sidebar extends Component {
+  static Header = SidebarHeader;
+  static Content = SidebarContent;
+
+  render() {
+    return (
+      <div className="sidebar">
+        {this.props.children}
+      </div>
+    );
+  }
 }
 
 export default Sidebar;

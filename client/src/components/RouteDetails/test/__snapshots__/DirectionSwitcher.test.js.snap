@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DirectionSwitcher /> should render correctly 1`] = `
+<div
+  className="direction-switcher"
+>
+  <h1>
+    1 California
+  </h1>
+  <ul>
+    <li
+      onClick={[Function]}
+    >
+      Inbound to Drumm + Clay
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      Outbound to Geary + 33rd Avenue
+    </li>
+  </ul>
+</div>
+`;

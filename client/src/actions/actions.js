@@ -42,6 +42,20 @@ const getRouteByTag = (tag) => {
   };
 };
 
+const closeRoute = (tag) => {
+  return {
+    type: 'CLOSE_ROUTE',
+    tag
+  };
+};
+
+const activateDirection = (tag) => {
+  return {
+    type: 'ACTIVATE_DIRECTION',
+    tag
+  };
+};
+
 const updateSearchTerm = (term) => {
   return {
     type: 'SEARCH_TERM',
@@ -50,6 +64,8 @@ const updateSearchTerm = (term) => {
 };
 
 export {
+  activateDirection,
+  closeRoute,
   getRoutes,
   getRouteByTag,
   updateSearchTerm

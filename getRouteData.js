@@ -36,6 +36,7 @@ async function getRouteDetails(tag) {
 }
 
 async function createRoutes() {
+  console.log('CREATING: routes.xml');
   const constructedRoutesObject = {
     body: {
       route: []
@@ -75,7 +76,7 @@ function constructXmlRoutesFile(routesObject) {
 
   fs.writeFile('routes.xml', xml, (err) => {
       if (err) throw err;
-      console.log('routes.xml created.');
+      console.log('CREATED: routes.xml');
   });
 }
 

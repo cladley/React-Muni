@@ -10,6 +10,7 @@ class Map extends Component {
     return (
       <GoogleMap defaultZoom={12} ref={(map) => this.mapInstance = map}
         defaultCenter={{lat: 37.77, lng: -122.43}}>
+        {this.props.children}
       </GoogleMap>
     );
   }

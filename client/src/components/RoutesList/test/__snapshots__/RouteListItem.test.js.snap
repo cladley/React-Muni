@@ -6,11 +6,6 @@ exports[`<RouteListItem /> should render correctly 1`] = `
   onClick={[Function]}
 >
   <span
-    className="route-list-item__tag"
-  >
-    C
-  </span>
-  <span
     className="route-list-item__title"
   >
     California

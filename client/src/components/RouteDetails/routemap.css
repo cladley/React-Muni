@@ -1,0 +1,62 @@
+.route-map-container {
+  height: calc(100vh - var(--direction-switcher-height) - var(--search-bar-height) - var(--search-bar-height) - var(--header-height));
+  overflow: scroll;
+}
+.route-map-track-holder {
+  position: relative;
+}
+
+.route-map {
+  list-style: none;
+  padding: 0 0 0 40px;
+}
+
+.route-track {
+  width: 5px;
+  height: 100%;
+  background: black;
+  position: absolute;
+  left: 20px;
+}
+
+.route-map__item {
+  font-size: 14px;
+  line-height: 40px;
+  position: relative;
+}
+
+.route-map__item span {
+  position: relative;
+  top: -17px;
+  left: 2px;
+}
+
+.route-map__item::before {
+  content: '';
+  width: 12px;
+  height: 5px;
+  background: black;
+  position: absolute;
+  left: -15px;
+}
+
+.route-map__item:first-child::before {
+  width: 27px;
+  left: -31px;
+}
+
+.route-details-container {
+  position: absolute;
+  top: 0;
+  background: white;
+  z-index: 1;
+  width: 100%;
+}
+
+.direction-switcher {
+  height: var(--direction-switcher-height);
+}
+
+.direction-switcher h1 {
+  margin: 0;
+}
