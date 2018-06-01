@@ -1,12 +1,8 @@
 import React from 'react';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import {shallow} from 'enzyme';
 import RoutePath from '../RoutePath';
 import renderer from 'react-test-renderer';
 import dummyPath from './dummyRoute';
-
-Enzyme.configure({adapter: new Adapter()});
-
 
 xdescribe('<RoutePath />', () => {
 

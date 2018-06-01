@@ -39,9 +39,17 @@ export default function (state = initialState, action) {
       });
     case 'GET_ROUTE_FAILURE':
       return state;
+    case 'GET_VEHICLES_SUCCESS':
+      return Object.assign({}, state, {
+        vehicles: action.vehicles
+      });
     case 'ACTIVATE_DIRECTION':
       return Object.assign({}, state, {
         currentActiveDirection: action.tag
+      });
+    case 'STOP_HOVERED': 
+      return Object.assign({}, state, {
+        hoveredStop: action.stopId
       });
     case 'SEARCH_TERM':
       return Object.assign({}, state, {searchTerm: action.searchTerm});

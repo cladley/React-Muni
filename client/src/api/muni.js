@@ -3,8 +3,9 @@ import {xmlToJson, createObjectFromArray} from '../utilities/helpers';
 const BASE_URL = 'http://webservices.nextbus.com/service/publicXMLFeed?a=sf-muni&command=';
 const ALL_ROUTES_URL = '/allroutes';
 const GET_ROUTE = `${BASE_URL}routeConfig&r=`;
-const GET_STOP_PREDICTIONS_FOR_STOP = `${BASE_URL}predictions&&s={stopTag}`;
+const GET_STOP_PREDICTIONS_FOR_STOP = `${BASE_URL}predictions&s={stopTag}`;
 const GET_STOP_PREDICTIONS_FOR_ROUTE = `${BASE_URL}predictions&r={routeTag}&s={stopTag}`;
+const GET_VEHICLE_LOCATIONS = `${BASE_URL}vehicleLocations&r={routeTag}&t={time}`;
 
 async function makeRequest(url) {
   let oDom;
@@ -35,6 +36,7 @@ export async function getAllStops() {
   const url = '/stops';
   const response = await fetch(url);
   const data = await response.json();
+  return data;
 }
 
 export async function getStopPredictions(routeTag, stopTag) {
@@ -50,5 +52,12 @@ export async function getAllPredictionsForStop(stopId) {
   const url = GET_STOP_PREDICTIONS_FOR_STOP
       .replace('{stopId}', stopId);
   const data = await makeRequest(url);
-  console.log(data);
+  return data;
+}
+
+export async function getVehicleLocations(routeTag, timeSinceLast = 0) {
+  const url = GET_VEHICLE_LOCATIONS.replace('{routeTag}', routeTag)
+      .replace('{time}', timeSinceLast);
+  const data = await makeRequest(url);
+  return data.body;
 }

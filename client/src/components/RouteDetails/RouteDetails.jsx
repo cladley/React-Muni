@@ -14,7 +14,7 @@ export default class RouteDetails extends Component {
 
     if (route) {
       const directionDetails = route.direction.find(
-        dir => dir.tag == direction
+        dir => dir.tag === direction
       );
       const stops = this.constructStops(directionDetails.stop);
 
@@ -22,7 +22,7 @@ export default class RouteDetails extends Component {
         <div className="route-details-container">
           <button onClick={close}>X</button>
           <DirectionSwitcher {...route} onDirectionClick={onDirectionChange} />
-          <RouteMap stops={stops} />
+          <RouteMap stops={stops} onHover={this.props.onStopHovered} />
         </div>
       );
     }

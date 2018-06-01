@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import RouteDetails from "./RouteDetails";
-import { activateDirection, closeRoute } from '../../actions/actions';
+import { activateDirection, closeRoute, stopHovered } from '../../actions/actions';
 
 class RouteDetailsContainer extends Component {
   directionChange = (tag) => {
@@ -12,6 +12,10 @@ class RouteDetailsContainer extends Component {
     this.props.dispatch(closeRoute(this.props.activeRoute));
   };
 
+  onStopHovered = (stop) => {
+    this.props.dispatch(stopHovered(stop.stopId));
+  }
+
   render() {
     return (
       <RouteDetails
@@ -19,6 +23,7 @@ class RouteDetailsContainer extends Component {
         direction={this.props.activeDirection}
         onDirectionChange={this.directionChange}
         close={this.close}
+        onStopHovered={this.onStopHovered}
       />
     );
   }

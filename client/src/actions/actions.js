@@ -1,4 +1,4 @@
-import {getAllRoutes, getRoute} from '../api/muni';
+import {getAllRoutes, getRoute, getVehicleLocations} from '../api/muni';
 
 const getRoutes = () => {
   return async dispatch => {
@@ -42,6 +42,28 @@ const getRouteByTag = (tag) => {
   };
 };
 
+const getRouteVehicleLocations = (tag, timeSinceLast = 0) => {
+  return async dispatch => {
+    dispatch({
+      type: 'GET_VEHICLES',
+      tag
+    });
+
+    try {
+      const vehicles = await getVehicleLocations(tag, 0);
+      delete vehicles.copyright;
+
+      dispatch({
+        type: 'GET_VEHICLES_SUCCESS',
+        vehicles,
+        tag
+      })
+    } catch (error) {
+
+    }
+  };
+};
+
 const closeRoute = (tag) => {
   return {
     type: 'CLOSE_ROUTE',
@@ -53,6 +75,13 @@ const activateDirection = (tag) => {
   return {
     type: 'ACTIVATE_DIRECTION',
     tag
+  };
+};
+
+const stopHovered = (stopId) => {
+  return {
+    type: 'STOP_HOVERED',
+    stopId
   };
 };
 
@@ -68,5 +97,7 @@ export {
   closeRoute,
   getRoutes,
   getRouteByTag,
+  getRouteVehicleLocations,
+  stopHovered,
   updateSearchTerm
 };
