@@ -61,3 +61,7 @@ export async function getVehicleLocations(routeTag, timeSinceLast = 0) {
   const data = await makeRequest(url);
   return data.body;
 }
+
+export function createStopsViewUrl(routeTag, stopId) {
+  return `/route/${routeTag}/stop/${stopId}`;
+}

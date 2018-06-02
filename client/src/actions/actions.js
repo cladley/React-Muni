@@ -85,6 +85,13 @@ const stopHovered = (stopId) => {
   };
 };
 
+const stopSelected = (stopId) => {
+  return {
+    type: 'STOP_SELECTED',
+    stopId
+  };
+};
+
 const updateSearchTerm = (term) => {
   return {
     type: 'SEARCH_TERM',
@@ -99,5 +106,6 @@ export {
   getRouteByTag,
   getRouteVehicleLocations,
   stopHovered,
+  stopSelected,
   updateSearchTerm
 };

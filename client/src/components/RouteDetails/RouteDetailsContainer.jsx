@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import RouteDetails from "./RouteDetails";
-import { activateDirection, closeRoute, stopHovered } from '../../actions/actions';
+import { activateDirection, closeRoute, stopHovered, stopSelected } from "../../actions/actions";
+import { createStopsViewUrl } from "../../api/muni";
 
 class RouteDetailsContainer extends Component {
-  directionChange = (tag) => {
+  directionChange = tag => {
     this.props.dispatch(activateDirection(tag));
   };
 
@@ -12,9 +14,15 @@ class RouteDetailsContainer extends Component {
     this.props.dispatch(closeRoute(this.props.activeRoute));
   };
 
-  onStopHovered = (stop) => {
+  onStopHovered = stop => {
     this.props.dispatch(stopHovered(stop.stopId));
-  }
+  };
+
+  onStopSelected = stop => {
+    this.props.history.push(
+      createStopsViewUrl(this.props.activeRoute.tag, stop.stopId)
+    );
+  };
 
   render() {
     return (
@@ -24,6 +32,7 @@ class RouteDetailsContainer extends Component {
         onDirectionChange={this.directionChange}
         close={this.close}
         onStopHovered={this.onStopHovered}
+        onStopSelected={this.onStopSelected}
       />
     );
   }
@@ -36,4 +45,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(RouteDetailsContainer);
+export default connect(mapStateToProps)(withRouter(RouteDetailsContainer));

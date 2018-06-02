@@ -22,7 +22,7 @@ export default class RouteDetails extends Component {
         <div className="route-details-container">
           <button onClick={close}>X</button>
           <DirectionSwitcher {...route} onDirectionClick={onDirectionChange} />
-          <RouteMap stops={stops} onHover={this.props.onStopHovered} />
+          <RouteMap stops={stops} onHover={this.props.onStopHovered} onStopSelected={this.props.onStopSelected} />
         </div>
       );
     }

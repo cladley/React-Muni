@@ -51,6 +51,10 @@ export default function (state = initialState, action) {
       return Object.assign({}, state, {
         hoveredStop: action.stopId
       });
+    case 'STOP_SELECTED':
+      return Object.assign({}, state, {
+        selectedStop: action.stopId
+      });  
     case 'SEARCH_TERM':
       return Object.assign({}, state, {searchTerm: action.searchTerm});
     default:
