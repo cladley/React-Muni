@@ -51,7 +51,7 @@ class RoutesViewer extends Component {
         hoveredStop={this.props.hoveredStop}
       />
     );
-  }
+  } 
 }
 
 const mapStateToProps = state => {
@@ -59,7 +59,7 @@ const mapStateToProps = state => {
     activeDirection: state.routes.currentActiveDirection,
     activeRoute: state.routes.routes.byTag[state.routes.currentActiveRoute],
     activeVehicles: state.routes.vehicles,
-    hoveredStop: state.routes.hoveredStop
+    hoveredStop: state.stops.hoveredStop
   };
 };
 
