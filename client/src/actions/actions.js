@@ -1,20 +1,22 @@
 import {getAllRoutes, getRoute, getVehicleLocations} from '../api/muni';
+import * as actionTypes from './actionTypes';
+
 
 const getRoutes = () => {
   return async dispatch => {
     dispatch({
-      type: 'GET_ROUTES',
+      type: actionTypes.GET_ROUTES,
     });
 
     try {
       const routes = await getAllRoutes();
       dispatch({
-        type: 'GET_ROUTES_SUCCESS',
+        type: actionTypes.GET_ROUTES_SUCCESS,
         routes
       })
     } catch(error) {
       dispatch({
-        type: 'GET_ROUTES_FAILURE'
+        type: actionTypes.GET_ROUTES_FAILURE,
       })
     }
   };
@@ -23,20 +25,20 @@ const getRoutes = () => {
 const getRouteByTag = (tag) => {
   return async dispatch => {
     dispatch({
-      type: 'GET_ROUTE',
+      type: actionTypes.GET_ROUTE,
       tag
     });
 
     try {
       const route = await getRoute(tag);
       dispatch({
-        type: 'GET_ROUTE_SUCCESS',
+        type: actionTypes.GET_ROUTE_SUCCESS,
         route,
         tag
       })
     } catch (error) {
       dispatch({
-        type: 'GET_ROUTE_FAILURE'
+        type: actionTypes.GET_ROUTE_FAILURE,
       });
     }
   };
@@ -45,7 +47,7 @@ const getRouteByTag = (tag) => {
 const getRouteVehicleLocations = (tag, timeSinceLast = 0) => {
   return async dispatch => {
     dispatch({
-      type: 'GET_VEHICLES',
+      type: actionTypes.GET_VEHICLES,
       tag
     });
 
@@ -54,7 +56,7 @@ const getRouteVehicleLocations = (tag, timeSinceLast = 0) => {
       delete vehicles.copyright;
 
       dispatch({
-        type: 'GET_VEHICLES_SUCCESS',
+        type: actionTypes.GET_VEHICLES_SUCCESS,
         vehicles,
         tag
       })
@@ -66,35 +68,35 @@ const getRouteVehicleLocations = (tag, timeSinceLast = 0) => {
 
 const closeRoute = (tag) => {
   return {
-    type: 'CLOSE_ROUTE',
+    type: actionTypes.CLOSE_ROUTE,
     tag
   };
 };
 
 const activateDirection = (tag) => {
   return {
-    type: 'ACTIVATE_DIRECTION',
+    type: actionTypes.ACTIVATE_DIRECTION,
     tag
   };
 };
 
 const stopHovered = (stopId) => {
   return {
-    type: 'STOP_HOVERED',
+    type: actionTypes.STOP_HOVERED,
     stopId
   };
 };
 
 const stopSelected = (stopId) => {
   return {
-    type: 'STOP_SELECTED',
+    type: actionTypes.STOP_SELECTED,
     stopId
   };
 };
 
 const updateSearchTerm = (term) => {
   return {
-    type: 'SEARCH_TERM',
+    type: actionTypes.SEARCH_TERM,
     searchTerm: term
   };
 };

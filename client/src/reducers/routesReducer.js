@@ -1,3 +1,5 @@
+import * as actionTypes from '../actions/actionTypes';
+
 const initialState = {
   routes: {
     byTag: {
@@ -15,39 +17,39 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch(action.type) {
-    case 'CLOSE_ROUTE':
+    case actionTypes.CLOSE_ROUTE:
       return Object.assign({}, state, {
         currentActiveRoute: null
       });
-    case 'GET_ROUTES':
+    case actionTypes.GET_ROUTES:
       return Object.assign({}, state, {getRoutesPending: true});
-    case 'GET_ROUTES_SUCCESS':
+    case actionTypes.GET_ROUTES_SUCCESS:
       return Object.assign({}, state, {
         routes: {'byTag': constructRoutes(action.routes)},
         getRoutesPending: false,
         getRoutesSuccess: true
       });
-    case 'GET_ROUTES_FAILURE':
+    case actionTypes.GET_ROUTES_FAILURE:
       return Object.assign({}, state, {getRouteFailure: true});
-    case 'GET_ROUTE':
+    case actionTypes.GET_ROUTE:
       return state;
-    case 'GET_ROUTE_SUCCESS':
+    case actionTypes.GET_ROUTE_SUCCESS:
       return Object.assign({}, state, {
         currentActiveRoute: action.tag,
         currentActiveDirection: action.route.direction[0].tag,
         routes: addRoute(state.routes, action.route)
       });
-    case 'GET_ROUTE_FAILURE':
+    case actionTypes.GET_ROUTE_FAILURE:
       return state;
-    case 'GET_VEHICLES_SUCCESS':
+    case actionTypes.GET_VEHICLES_SUCCESS:
       return Object.assign({}, state, {
         vehicles: action.vehicles
       });
-    case 'ACTIVATE_DIRECTION':
+    case actionTypes.ACTIVATE_DIRECTION:
       return Object.assign({}, state, {
         currentActiveDirection: action.tag
       });
-    case 'SEARCH_TERM':
+    case actionTypes.SEARCH_TERM:
       return Object.assign({}, state, {searchTerm: action.searchTerm});
     default:
       return state;
