@@ -8,7 +8,7 @@ import Map from "../components/Map/Map";
 
 export default function() {
   return (
-    <React.Fragment>
+    <div className="home-view">
       <Sidebar>
       <Sidebar.Header>
         <SearchBar />
@@ -26,6 +26,6 @@ export default function() {
       >
       <RoutesViewer />
       </Map>
-    </React.Fragment>
+    </div>
   );
 }

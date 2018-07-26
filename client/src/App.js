@@ -11,13 +11,13 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
+        <div className="app">
           <SiteHeader />
           <BrowserRouter>
             <Switch>
               <Route exact path="/" component={HomeView} />
-              <Route path="/route/:routeTag/stop/:stopId" component={({match}) => {
-                return <StopView stopId={match.params.stopId} routeTag={match.params.routeTag}/>;
+              <Route path="/route/:routeTag/stop/:stopTag" component={({match}) => {
+                return <StopView stopTag={match.params.stopTag} routeTag={match.params.routeTag}/>;
               }} />
             </Switch>
           </BrowserRouter>

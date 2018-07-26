@@ -1,4 +1,4 @@
-import {getAllRoutes, getRoute, getVehicleLocations} from '../api/muni';
+import {getAllRoutes, getRoute, getVehicleLocations, getStopPredictions} from '../api/muni';
 import * as actionTypes from './actionTypes';
 
 
@@ -35,7 +35,7 @@ const getRouteByTag = (tag) => {
         type: actionTypes.GET_ROUTE_SUCCESS,
         route,
         tag
-      })
+      });
     } catch (error) {
       dispatch({
         type: actionTypes.GET_ROUTE_FAILURE,
@@ -66,6 +66,40 @@ const getRouteVehicleLocations = (tag, timeSinceLast = 0) => {
   };
 };
 
+const getPredictionsForStop = (routeTag, stopTag) => {
+    return async dispatch => {
+
+      dispatch({
+        type: actionTypes.GET_STOP_PREDICTIONS,
+        routeTag, 
+        stopTag
+      });
+
+      try {
+        const route = await getRoute(routeTag);
+
+        dispatch({
+          type: actionTypes.GET_ROUTE_SUCCESS,
+          route,
+          tag: routeTag
+        });
+        
+        const result = await getStopPredictions(routeTag, stopTag);
+        dispatch({
+          type: actionTypes.GET_STOP_PREDICTIONS_SUCCESS,
+          stopTag,
+          stopTitle: result.stopTitle,
+          predictions:  result.direction.prediction
+        });
+
+
+        console.log(result);
+      } catch (error) {
+  
+      }
+    };  
+};
+
 const closeRoute = (tag) => {
   return {
     type: actionTypes.CLOSE_ROUTE,
@@ -80,17 +114,17 @@ const activateDirection = (tag) => {
   };
 };
 
-const stopHovered = (stopId) => {
+const stopHovered = (stopTag) => {
   return {
     type: actionTypes.STOP_HOVERED,
-    stopId
+    stopTag
   };
 };
 
-const stopSelected = (stopId) => {
+const stopSelected = (stopTag) => {
   return {
     type: actionTypes.STOP_SELECTED,
-    stopId
+    stopTag
   };
 };
 
@@ -107,6 +141,7 @@ export {
   getRoutes,
   getRouteByTag,
   getRouteVehicleLocations,
+  getPredictionsForStop,
   stopHovered,
   stopSelected,
   updateSearchTerm

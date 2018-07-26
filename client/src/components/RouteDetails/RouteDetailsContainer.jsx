@@ -15,12 +15,12 @@ class RouteDetailsContainer extends Component {
   };
 
   onStopHovered = stop => {
-    this.props.dispatch(stopHovered(stop.stopId));
+    this.props.dispatch(stopHovered(stop.tag));
   };
 
   onStopSelected = stop => {
     this.props.history.push(
-      createStopsViewUrl(this.props.activeRoute.tag, stop.stopId)
+      createStopsViewUrl(this.props.activeRoute.tag, stop.tag)
     );
   };
 

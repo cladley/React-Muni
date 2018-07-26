@@ -38,6 +38,13 @@ class RoutesViewer extends Component {
     return true;
   }
 
+  componentWillUnmount() {
+    this.setState({
+      liveVehicles: false
+    });
+    clearInterval(this.timeoutId);
+  }
+
   onSendVehicleRequest() {
     this.props.dispatch(getRouteVehicleLocations(this.props.activeRoute.tag, this.props.activeVehicles.lastTime.time));
   }

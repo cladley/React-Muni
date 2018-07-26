@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import { Circle } from "react-google-maps";
 
 const RouteLiveVehicles = ({vehicles}) => {

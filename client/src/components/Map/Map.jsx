@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import {withScriptjs, withGoogleMap, GoogleMap} from 'react-google-maps';
+import { ACTIVATE_DIRECTION } from '../../actions/actionTypes';
 
 class Map extends Component {
   constructor(props) {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.activeRoute) {
-      const {activeRoute} = nextProps;
+  componentDidUpdate() {
+    if (this.props.activeRoute) {
+      const {activeRoute} = this.props;
       const bounds = new window.google.maps.LatLngBounds(
         {
           lat: Number.parseFloat(activeRoute.latMin),

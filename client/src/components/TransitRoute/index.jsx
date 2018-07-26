@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Marker } from "react-google-maps/lib/components/Marker";
+// import { Marker } from "react-google-maps/lib/components/Marker";
 import RoutePath from "./RoutePath";
 import RouteStops from "./RouteStops";
 import RouteLiveVehicles from "./RouteLiveVehicles";
@@ -29,7 +29,7 @@ export default class TransitRoute extends Component {
       const stops = this.constructStops(directionDetails.stop);
       const vehicles = this.extractDirectionVehicles(this.props.vehicles, this.props.direction);
 
-      return (
+      return ( 
         <React.Fragment>
           <RoutePath path={path} color={color} />
           <RouteStops stops={stops} hoveredStop={this.props.hoveredStop} />
